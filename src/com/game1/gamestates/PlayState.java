@@ -6,7 +6,7 @@ public class PlayState extends GameState {
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
-		init();
+
 	}
 	
 	@Override
