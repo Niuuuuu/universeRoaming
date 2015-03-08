@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.game1.entities.Asteroid;
 import com.game1.entities.Bullet;
 import com.game1.entities.Player;
 import com.game1.managers.GameKeys;
@@ -16,6 +17,7 @@ public class PlayState extends GameState {
 	
 	private Player player;
 	private ArrayList<Bullet> bullets;
+	private ArrayList<Asteroid> asteroids;
 	
 	
 	
@@ -32,6 +34,10 @@ public class PlayState extends GameState {
 		
 		player = new Player(bullets);
 		
+		asteroids = new ArrayList<Asteroid>();
+		asteroids.add(new Asteroid(100,100,Asteroid.LARGE));
+		asteroids.add(new Asteroid(200,100,Asteroid.MEDIUM));
+		asteroids.add(new Asteroid(300,100,Asteroid.SMALL));
 		
 	}
 
@@ -46,13 +52,24 @@ public class PlayState extends GameState {
 		
 		//update player bullets
 		for (int i=0; i<bullets.size(); i++){
-			bullets.get(i).upate(dt);
+			bullets.get(i).update(dt);
 			if(bullets.get(i).shouldRemove()) {
 				bullets.remove(i);
 				i--;
 				
 			}
 			
+		}
+		
+		
+		//update asteroids
+		for (int i=0; i<asteroids.size(); i++){
+			asteroids.get(i).update(dt);
+			if(asteroids.get(i).shouldRemove()) {
+				asteroids.remove(i);
+				i--;
+				
+			}
 		}
 		
 	}
@@ -69,6 +86,10 @@ public class PlayState extends GameState {
 			
 		}
 		
+		//draw asteroids
+		for (int i=0; i<asteroids.size(); i++){
+			asteroids.get(i).draw(sr);
+		}
 	}
 
 

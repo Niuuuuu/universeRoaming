@@ -35,7 +35,7 @@ public class Bullet extends SpaceObject{
 	
 	public boolean shouldRemove () { return remove;}
 
-	public void upate (float dt){
+	public void update (float dt){
 		
 		x+= dx*dt;
 		y+= dy*dt;
