@@ -52,6 +52,28 @@ public class PlayState extends GameState {
 		
 	}
 
+	private void splitAsteroids(Asteroid a){
+		
+		numAsteroidsLeft--;
+	   if (a.getType()== Asteroid.LARGE){
+		   asteroids.add(
+				   new Asteroid( a.getx(), a.gety(), Asteroid.MEDIUM));
+		   asteroids.add(
+				   new Asteroid( a.getx(), a.gety(), Asteroid.MEDIUM));
+		   
+	   }
+	   if (a.getType()== Asteroid.MEDIUM){
+		   asteroids.add(
+				   new Asteroid( a.getx(), a.gety(), Asteroid.SMALL));
+		   asteroids.add(
+				   new Asteroid( a.getx(), a.gety(), Asteroid.SMALL));
+		   
+	   }
+		
+		
+	}
+	
+	
 	private void spawnAsteroids(){
 		
 		asteroids.clear();
@@ -115,8 +137,32 @@ public class PlayState extends GameState {
 			}
 		}
 		
+		//check collision
+		checkCollisions();
 	}
 
+	
+	private void checkCollisions(){
+		for (int i=0; i<bullets.size(); i++){
+			Bullet b = bullets.get(i);
+			for (int j =0; j< asteroids.size(); j++) {
+				Asteroid a = asteroids.get(j);
+				if(a.contains(b.getx(), b.gety())) {
+					bullets.remove(i);
+					i--;
+					asteroids.remove(j);
+					j--;
+					splitAsteroids(a);
+					break;
+				}
+				
+				
+			}
+				
+			}
+		
+		
+	}
 
 	@Override
 	public void draw() {
