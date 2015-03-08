@@ -9,6 +9,7 @@ import com.game1.main.Game;
 
 public class Player extends SpaceObject{
 
+	private final int MAX_BULLETS =4;
 	private ArrayList<Bullet> bullets;
 	
 	private float[] flamex;
@@ -82,6 +83,13 @@ public class Player extends SpaceObject{
 	public void setLeft (boolean b) {left =b;}
 	public void setRight (boolean b) {right =b;}
 	public void setUp (boolean b) {up =b;}
+	
+	
+	public void shoot(){
+		if(bullets.size() >= MAX_BULLETS) return;
+		bullets.add(new Bullet(x,y,radians));
+		
+	}
 	
 	public void update(float dt){
 		//turning

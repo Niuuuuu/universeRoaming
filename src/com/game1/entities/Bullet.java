@@ -1,6 +1,7 @@
 package com.game1.entities;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Bullet extends SpaceObject{
@@ -51,6 +52,13 @@ public class Bullet extends SpaceObject{
 	}
 	
 	public void draw (ShapeRenderer sr){
+		sr.setColor(1,1,1,1);
+		
+		sr.begin(ShapeType.Filled);
+		
+		sr.circle(x - width/2, y/height/2, width /2);
+		
+		sr.end();
 		
 		
 	}
