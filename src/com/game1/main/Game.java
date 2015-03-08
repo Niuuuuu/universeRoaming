@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.game1.managers.GameInputProcessor;
 
 public class Game implements ApplicationListener {
 	
@@ -22,7 +23,11 @@ public class Game implements ApplicationListener {
 		cam = new OrthographicCamera(WIDTH,HEIGHT);
 		cam.translate(WIDTH/2, HEIGHT/2);
 		cam.update();
+		Gdx.input.setInputProcessor(
+			new GameInputProcessor()
+		);
 		
+	
 	}
 	public void render(){
 		
