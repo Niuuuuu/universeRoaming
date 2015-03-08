@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.game1.managers.GameInputProcessor;
 import com.game1.managers.GameKeys;
+import com.game1.managers.GameStateManager;
 
 public class Game implements ApplicationListener {
 	
@@ -14,6 +15,9 @@ public class Game implements ApplicationListener {
 	public static int HEIGHT;
 	
 	public static OrthographicCamera cam;
+	
+	private GameStateManager gsm;
+	
 	public void create(){
 		
 		
@@ -28,6 +32,8 @@ public class Game implements ApplicationListener {
 			new GameInputProcessor()
 		);
 		
+		gsm = new GameStateManager();
+		
 	
 	}
 	public void render(){
@@ -35,6 +41,11 @@ public class Game implements ApplicationListener {
 		//clear screens to black
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+		
+		//the time spent since last time of calling render, getDeltaTime
+		// this is to find out how much to make the game forward
+		gsm.update(Gdx.graphics.getDeltaTime());
+		gsm.draw();
 		
 		
 		GameKeys.update();

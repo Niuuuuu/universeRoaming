@@ -20,7 +20,7 @@ public class GameStateManager {
 			
 			//Switch to menu
 		}
-		
+		 
 		if(state == PLAY){
 			
 			//Switch to play
