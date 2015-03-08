@@ -3,6 +3,7 @@ package com.game1.main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class Game implements ApplicationListener {
 	
@@ -10,12 +11,17 @@ public class Game implements ApplicationListener {
 	public static int WIDTH;
 	public static int HEIGHT;
 	
+	public static OrthographicCamera cam;
 	public void create(){
 		
 		
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT= Gdx.graphics.getHeight();
-		
+
+		//setting up camera, moving camera into right place 
+		cam = new OrthographicCamera(WIDTH,HEIGHT);
+		cam.translate(WIDTH/2, HEIGHT/2);
+		cam.update();
 		
 	}
 	public void render(){
