@@ -29,7 +29,7 @@ public class Player extends SpaceObject{
 		shapey = new float [4];
 
 		radians = pi/2;
-		
+		rotationSpeed = 3;
 	}
 	
 	
@@ -90,8 +90,8 @@ public class Player extends SpaceObject{
 		}
 		
 		//set position
-		x+= dx;
-		y+=dy;
+		x+= dx *dt;
+		y+=dy *dt ;
 		
 		//set Shape
 		setShape();

@@ -2,6 +2,7 @@ package com.game1.gamestates;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.game1.entities.Player;
+import com.game1.managers.GameKeys;
 import com.game1.managers.GameStateManager;
 
 public class PlayState extends GameState {
@@ -30,6 +31,8 @@ public class PlayState extends GameState {
 
 	@Override
 	public void update(float dt) {
+		handleInput(); 
+		
 		player.update(dt);
 		
 	}
@@ -44,8 +47,10 @@ public class PlayState extends GameState {
 
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
-		
+		//Gdx.input.isKeyPressed(Keys.LEFT) also works
+		player.setLeft(GameKeys.isDown(GameKeys.LEFT));
+		player.setRight(GameKeys.isDown(GameKeys.RIGHT));
+		player.setUp(GameKeys.isDown(GameKeys.UP));
 	}
 
 
