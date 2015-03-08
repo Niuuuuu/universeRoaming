@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.game1.managers.GameInputProcessor;
+import com.game1.managers.GameKeys;
 
 public class Game implements ApplicationListener {
 	
@@ -31,8 +32,11 @@ public class Game implements ApplicationListener {
 	}
 	public void render(){
 		
+		//clear screens to black
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+		
+		GameKeys.update();
 		
 	}
 
