@@ -7,6 +7,10 @@ import com.game1.main.Game;
 
 public class Player extends SpaceObject{
 
+	
+	private float[] flamex;
+	private float[] flamey;
+	
 	private boolean left;
 	private boolean right;
 	private boolean up;
@@ -15,6 +19,7 @@ public class Player extends SpaceObject{
 	private float acceleration;
 	private float decelaration;
 	private float pi= 3.141592654f;
+	private float acceleratingTimer;
 	
 	public Player(){
 		
@@ -27,6 +32,8 @@ public class Player extends SpaceObject{
 		
 		shapex = new float[4];
 		shapey = new float [4];
+		flamex = new float[3];
+		flamey = new float[3];
 
 		radians = pi/2;
 		rotationSpeed = 3;
@@ -51,6 +58,21 @@ public class Player extends SpaceObject{
 		shapey[3]= y + MathUtils.sin(radians +  4*pi/5) *8;
 		
 	}
+	private void setFlame(){
+		
+		flamex[0] = x + MathUtils.cos(radians - 5*pi/6)*5;
+		flamey[0] = y + MathUtils.sin(radians - 5*pi/6)*5;
+		
+		flamex[1] = x + MathUtils.cos(radians - pi) * 
+				(6+ acceleratingTimer *50);
+		flamey[1] = y + MathUtils.sin(radians - pi)* 
+				(6+ acceleratingTimer *50);
+		
+		flamex[2] = x+ MathUtils.cos(radians + 5*pi/6)*5;
+		flamey[2] = y+ MathUtils.sin(radians + 5*pi/6)*5;
+		
+		
+	}
 	
 	public void setLeft (boolean b) {left =b;}
 	public void setRight (boolean b) {right =b;}
@@ -70,6 +92,14 @@ public class Player extends SpaceObject{
 		if(up){
 			dx += MathUtils.cos(radians) * acceleration *dt;
 			dy += MathUtils.sin(radians) * acceleration *dt;
+			acceleratingTimer += dt;
+			if (acceleratingTimer > 0.1f){
+				acceleratingTimer = 0;
+			}
+		}
+			else {
+				
+				acceleratingTimer = 0;
 		}
 		
 		//decleration
@@ -77,7 +107,7 @@ public class Player extends SpaceObject{
 		//if player is still moving( either left or right), friction will apply
 		//to slow player down
 		float vec =(float) Math.sqrt(dx *dx + dy*dy);
-		
+		 
 		if (vec > 0){
 			dx -= (dx/vec ) *decelaration *dt; 
 			dy -= (dy/vec ) *decelaration *dt; 
@@ -96,6 +126,11 @@ public class Player extends SpaceObject{
 		//set Shape
 		setShape();
 		
+		//set flame
+		if(up) {
+			setFlame();
+		}
+		
 		//screen wrap
 		wrap();
 		
@@ -109,12 +144,26 @@ public class Player extends SpaceObject{
 		
 		sr.begin(ShapeType.Line);
 		
+		//draw player
 		for(int i=0, j= shapex.length -1;
 			i< shapex.length;
 			j= i++){
 			
 			sr.line(shapex[i], shapey[i],shapex[j],shapey[j]);
 		}
+		
+		
+		//draw flames
+		if(up){
+			for(int i=0, j= flamex.length -1;
+					i< flamex.length;
+					j= i++){
+					
+					sr.line(flamex[i], flamey[i],flamex[j],flamey[j]);
+				}
+		}
+		
+		
 		
 		sr.end();
 	}
