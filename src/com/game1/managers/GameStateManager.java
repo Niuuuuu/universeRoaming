@@ -1,6 +1,7 @@
 package com.game1.managers;
 
 import com.game1.gamestates.GameState;
+import com.game1.gamestates.PlayState;
 
 public class GameStateManager {
 
@@ -11,10 +12,12 @@ public class GameStateManager {
 	public static final int PLAY = 100;
 	
 	public GameStateManager(){
+		setState(PLAY);
 		
 	}
 	
 	public void setState (int state ){
+		if(gameState != null) gameState.dispose();
 		
 		if(state ==MENU) {
 			
@@ -24,6 +27,8 @@ public class GameStateManager {
 		if(state == PLAY){
 			
 			//Switch to play
+			gameState = new PlayState(this);
+		
 		}
 			
 	}
