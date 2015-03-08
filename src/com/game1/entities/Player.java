@@ -1,5 +1,6 @@
 package com.game1.entities;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.game1.main.Game;
 
 public class Player extends SpaceObject{
@@ -11,6 +12,7 @@ public class Player extends SpaceObject{
 	private float maxSpeed;
 	private float acceleration;
 	private float decelaration;
+	private float pi= 3.141592654f;
 	
 	public Player(){
 		
@@ -30,8 +32,20 @@ public class Player extends SpaceObject{
 	
 	private void setShape(){
 		
-		
-		
+		//setting up the player's shape by doing simple calculation from the 
+		// center of the game
+		//first point, the point above center
+		shapex[0]= x+ MathUtils.cos(radians) *8;
+		shapey[0]= y + MathUtils.sin(radians) *8;
+		//second point, botton left point
+		shapex[1]= x + MathUtils.cos(radians - 4*pi /5) *8;
+		shapey[1]= y + MathUtils.sin(radians -  4*pi/5) *8;
+		//third point, the point below center 
+		shapex[2]= x+ MathUtils.cos(radians +pi) *5;
+		shapey[2]= y + MathUtils.sin(radians +pi)*5;		
+		//forth point, the botton right point
+		shapex[3]= x + MathUtils.cos(radians + 4*pi /5) *8;
+		shapey[3]= y + MathUtils.sin(radians +  4*pi/5) *8;
 		
 	}
 	
