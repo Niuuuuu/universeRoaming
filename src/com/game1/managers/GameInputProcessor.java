@@ -8,4 +8,9 @@ public class GameInputProcessor extends InputAdapter{
 		return true;
 	}
 
+	public boolean keyDown(int k){
+		
+		return true;
+	}
+	
 }
