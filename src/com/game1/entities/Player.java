@@ -49,7 +49,55 @@ public class Player extends SpaceObject{
 		
 	}
 	
+	public void setLeft (boolean b) {left =b;}
+	public void setRight (boolean b) {right =b;}
+	public void setUp (boolean b) {up =b;}
 	
+	public void update(float dt){
+		//turning
+		if (left){
+			
+			radians += rotationSpeed*dt;
+		}
+		else if(right){
+			radians -= rotationSpeed*dt;
+		}
+		
+		// accelerating
+		if(up){
+			dx += MathUtils.cos(radians) * acceleration *dt;
+			dy += MathUtils.sin(radians) * acceleration *dt;
+		}
+		
+		//decleration
+		//triangle, z= sqrt(x^2+y^2) 
+		//if player is still moving( either left or right), friction will apply
+		//to slow player down
+		float vec =(float) Math.sqrt(dx *dx + dy*dy);
+		
+		if (vec > 0){
+			dx -= (dx/vec ) *decelaration *dt; 
+			dy -= (dy/vec ) *decelaration *dt; 
+	
+		}
+		if (vec > maxSpeed){
+			dx = (dx / vec ) *maxSpeed;
+			dy = (dy /vec) *maxSpeed;
+			
+		}
+		
+		//set position
+		x+= dx;
+		y+=dy;
+		
+		//set Shape
+		setShape();
+		
+		//screen wrap
+		wrap();
+		
+		
+	}
 	
 	
 }
