@@ -1,6 +1,9 @@
 package com.game1.gamestates;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.game1.entities.Bullet;
 import com.game1.entities.Player;
 import com.game1.managers.GameKeys;
 import com.game1.managers.GameStateManager;
@@ -10,6 +13,7 @@ public class PlayState extends GameState {
 	private ShapeRenderer sr;
 	
 	private Player player;
+	private ArrayList<Bullet> bullets;
 	
 	
 	
