@@ -1,5 +1,7 @@
 package com.game1.entities;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
@@ -7,6 +9,7 @@ import com.game1.main.Game;
 
 public class Player extends SpaceObject{
 
+	private ArrayList<Bullet> bullets;
 	
 	private float[] flamex;
 	private float[] flamey;
@@ -21,7 +24,9 @@ public class Player extends SpaceObject{
 	private float pi= 3.141592654f;
 	private float acceleratingTimer;
 	
-	public Player(){
+	public Player( ArrayList<Bullet> bullets){
+		
+		this.bullets = bullets;
 		
 		x = Game.WIDTH /2;
 		y = Game.HEIGHT /2;
