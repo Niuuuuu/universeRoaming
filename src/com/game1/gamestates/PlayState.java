@@ -115,7 +115,11 @@ public class PlayState extends GameState {
 		
 		//update player
 		player.update(dt);
-		
+		if(player.isDead()){
+			player.reset();
+			return;
+			
+		}
 		//update player bullets
 		for (int i=0; i<bullets.size(); i++){
 			bullets.get(i).update(dt);

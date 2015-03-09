@@ -100,6 +100,16 @@ public class Player extends SpaceObject{
 	public void setRight (boolean b) {right =b;}
 	public void setUp (boolean b) {up =b;}
 	
+	public boolean isHit() {return hit;}
+	public boolean isDead() {return dead;}
+	public void reset(){
+		x= Game.WIDTH /2;
+		y= Game.HEIGHT /2;
+		setShape();
+		hit = dead = false;
+		
+		
+	}
 	
 	public void hit(){
 		
