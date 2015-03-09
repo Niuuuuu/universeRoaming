@@ -104,6 +104,13 @@ public class Player extends SpaceObject{
 		
 	}
 	
+	
+	public long getScore() {return score;}
+	public int getLives() {return extraLives;}
+	
+	public void loseLife() {extraLives--;}
+	public void incrementScore (long l) {score += l;}
+	
 	public void setLeft (boolean b) {left =b;}
 	public void setRight (boolean b) {right =b;}
 	public void setUp (boolean b) {up =b;}
@@ -184,6 +191,10 @@ public class Player extends SpaceObject{
 			return;
 		}
 		
+		if( score >= requiredScore) {
+			extraLives++;
+			requiredScore += 10000;
+		}
 		
 		//turning
 		if (left){
