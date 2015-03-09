@@ -166,6 +166,10 @@ public class PlayState extends GameState {
 		//update player
 		player.update(dt);
 		if(player.isDead()){
+			if(player.getLives() <=1){
+				
+				gsm.setState(GameStateManager.MENU);
+			}
 			player.reset();
 			player.loseLife();
 			return;

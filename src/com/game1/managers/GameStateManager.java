@@ -13,7 +13,7 @@ public class GameStateManager {
 	public static final int PLAY = 100;
 	
 	public GameStateManager(){
-		setState(PLAY);
+		setState(MENU);
 		
 	}
 	

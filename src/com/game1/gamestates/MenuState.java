@@ -16,7 +16,7 @@ public class MenuState extends GameState {
 	private BitmapFont titleFont;
 	private BitmapFont font;
 	
-	private final String title = "Asteroids";
+	private final String title = "Universe Roaming";
 	
 	private int currentItem;
 	private String[] menuItems;
@@ -33,7 +33,7 @@ public class MenuState extends GameState {
 			Gdx.files.internal("fonts/Hyperspace Bold.ttf")
 		);
 		
-		titleFont = gen.generateFont(56);
+		titleFont = gen.generateFont(40);
 		titleFont.setColor(Color.WHITE);
 		
 		font = gen.generateFont(20);
@@ -89,11 +89,20 @@ public class MenuState extends GameState {
 		if(GameKeys.isPressed(GameKeys.UP)) {
 			if(currentItem > 0) {
 				currentItem--;
+			
+			}
+			else if (currentItem <= 0){
+				currentItem = menuItems.length - 1;
+				
 			}
 		}
 		if(GameKeys.isPressed(GameKeys.DOWN)) {
 			if(currentItem < menuItems.length - 1) {
 				currentItem++;
+			}
+			else if (currentItem >= menuItems.length -1 ){
+				currentItem = 0;
+				
 			}
 		}
 		if(GameKeys.isPressed(GameKeys.ENTER)) {
