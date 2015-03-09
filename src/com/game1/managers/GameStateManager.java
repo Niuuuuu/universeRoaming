@@ -1,6 +1,7 @@
 package com.game1.managers;
 
 import com.game1.gamestates.GameState;
+import com.game1.gamestates.MenuState;
 import com.game1.gamestates.PlayState;
 
 public class GameStateManager {
@@ -21,7 +22,7 @@ public class GameStateManager {
 		
 		if(state ==MENU) {
 			
-			//Switch to menu
+			gameState = new MenuState(this);
 		}
 		 
 		if(state == PLAY){
