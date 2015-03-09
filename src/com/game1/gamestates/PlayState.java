@@ -43,10 +43,7 @@ public class PlayState extends GameState {
 		player = new Player(bullets);
 		
 		asteroids = new ArrayList<Asteroid>();
-		// testing different size
-		asteroids.add(new Asteroid(100,100,Asteroid.LARGE));
-		asteroids.add(new Asteroid(200,100,Asteroid.MEDIUM));
-		asteroids.add(new Asteroid(300,100,Asteroid.SMALL));
+
 		
 		particles =new ArrayList<Particle>();
 		
@@ -124,6 +121,13 @@ public class PlayState extends GameState {
 		// get user input
 		handleInput(); 
 		
+		//next level
+		if(asteroids.size() == 0){
+			
+			level++;
+			spawnAsteroids();
+		}
+		
 		//update player
 		player.update(dt);
 		if(player.isDead()){
@@ -132,6 +136,8 @@ public class PlayState extends GameState {
 			
 		}
 		//update player bullets
+		
+		
 		for (int i=0; i<bullets.size(); i++){
 			bullets.get(i).update(dt);
 			if(bullets.get(i).shouldRemove()) {
@@ -212,9 +218,11 @@ public class PlayState extends GameState {
 		player.draw(sr);
 		
 		//drae bullets
+		if (!player.isHit()){
 		for (int i=0; i<bullets.size(); i++){
 			bullets.get(i).draw(sr);
 			
+		}
 		}
 		
 		//draw asteroids
