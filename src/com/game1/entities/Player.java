@@ -105,6 +105,11 @@ public class Player extends SpaceObject{
 	}
 	
 	
+	public void setPosition(float x, float y){
+		super.setPosition(x, y);
+		setShape();
+	}
+	
 	public long getScore() {return score;}
 	public int getLives() {return extraLives;}
 	

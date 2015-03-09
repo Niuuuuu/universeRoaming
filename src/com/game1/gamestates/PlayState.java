@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.game1.entities.Asteroid;
@@ -16,7 +19,12 @@ import com.game1.managers.GameStateManager;
 
 public class PlayState extends GameState {
 
+	
+	private SpriteBatch sb;
 	private ShapeRenderer sr;
+	
+	private BitmapFont font;
+	private Player playerLives;
 	
 	private Player player;
 	private ArrayList<Bullet> bullets;
@@ -36,8 +44,15 @@ public class PlayState extends GameState {
 	
 	@Override
 	public void init(){
-		
+		sb = new SpriteBatch();
 		sr = new ShapeRenderer();
+		
+		//set font
+		FreeTypeFontGenerator gen=
+				new FreeTypeFontGenerator(
+						Gdx.files.internal("fonts/Hyperspace Bold.ttf"));
+		font = gen.generateFont(20);
+		
 		bullets = new ArrayList<Bullet>();
 		
 		player = new Player(bullets);
@@ -52,6 +67,7 @@ public class PlayState extends GameState {
 			
 		}
 		
+		playerLives = new Player(null);
 	}
 	
 	private void createParticles(float x, float y) {
@@ -132,6 +148,7 @@ public class PlayState extends GameState {
 		player.update(dt);
 		if(player.isDead()){
 			player.reset();
+			player.loseLife();
 			return;
 			
 		}
@@ -200,7 +217,11 @@ public class PlayState extends GameState {
 					i--;
 					asteroids.remove(j);
 					j--;
+					
 					splitAsteroids(a);
+					// increase the score
+					
+					player.incrementScore(a.getScore());
 					break;
 				}
 				
@@ -232,6 +253,20 @@ public class PlayState extends GameState {
 		//draw particles
 		for (int i=0; i<particles.size(); i++){
 			particles.get(i).draw(sr);
+		}
+		
+		//draw score
+		sb.setColor(1,1,1,1);
+		sb.begin();
+		font.draw(sb, Long.toString(player.getScore()), 40, 390);
+		sb.end();
+		
+		//draw lives
+		for ( int i=0; i<player.getLives(); i++){
+		playerLives.setPosition(40+i*11, 360);
+		
+		playerLives.draw(sr);
+		
 		}
 	}
 
