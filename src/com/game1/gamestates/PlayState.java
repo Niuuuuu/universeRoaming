@@ -149,7 +149,7 @@ public class PlayState extends GameState {
 	
 	private void checkCollisions(){
 		
-		
+		if (!player.isHit()){
 		// player asteroid collision
 		for ( int i=0; i< asteroids.size(); i++){
 			Asteroid a = asteroids.get(i);
@@ -161,6 +161,7 @@ public class PlayState extends GameState {
 				break;
 			}
 		}
+	}
 		
 		
 		// bullet asteroid collision
