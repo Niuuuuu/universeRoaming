@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.game1.entities.Asteroid;
 import com.game1.entities.Bullet;
+import com.game1.entities.Particle;
 import com.game1.entities.Player;
 import com.game1.main.Game;
 import com.game1.managers.GameKeys;
@@ -20,6 +21,8 @@ public class PlayState extends GameState {
 	private Player player;
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Asteroid> asteroids;
+	
+	private ArrayList<Particle> particles;
 	
 	private int level;
 	private int totalAsteroids;
@@ -45,15 +48,23 @@ public class PlayState extends GameState {
 		asteroids.add(new Asteroid(200,100,Asteroid.MEDIUM));
 		asteroids.add(new Asteroid(300,100,Asteroid.SMALL));
 		
+		particles =new ArrayList<Particle>();
+		
 		level = 1;
 		spawnAsteroids();{
 			
 		}
 		
 	}
-
+	
+	private void createParticles(float x, float y) {
+		for(int i = 0; i < 6; i++) {
+			particles.add(new Particle(x, y));
+		}
+	}
 	// split a larger asteroids into 2 medium ones. a medium one into two small one
 	private void splitAsteroids(Asteroid a){
+		createParticles(a.getx(), a.gety());
 		
 		numAsteroidsLeft--;
 	   if (a.getType()== Asteroid.LARGE){
@@ -142,6 +153,15 @@ public class PlayState extends GameState {
 			}
 		}
 		
+		// update particles
+		for(int i=0; i< particles.size(); i++){
+			particles.get(i).update(dt);
+			if(particles.get(i).shouldRemove()){
+				particles.remove(i);
+				i--;
+			}
+			
+		}
 		//check collision
 		checkCollisions();
 	}
@@ -201,6 +221,11 @@ public class PlayState extends GameState {
 		for (int i=0; i<asteroids.size(); i++){
 			asteroids.get(i).draw(sr);
 		}	
+		
+		//draw particles
+		for (int i=0; i<particles.size(); i++){
+			particles.get(i).draw(sr);
+		}
 	}
 
 
