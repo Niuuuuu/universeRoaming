@@ -218,11 +218,10 @@ public class PlayState extends GameState {
 		player.draw(sr);
 		
 		//drae bullets
-		if (!player.isHit()){
+		
 		for (int i=0; i<bullets.size(); i++){
 			bullets.get(i).draw(sr);
 			
-		}
 		}
 		
 		//draw asteroids

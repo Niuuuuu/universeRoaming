@@ -36,6 +36,10 @@ public class Player extends SpaceObject{
 	private Line2D.Float[] hitLines;
 	private Point2D.Float[] hitLinesVector;
 	
+	private long score;
+	private int extraLives;
+	private long requiredScore;
+	
 	
 	public Player( ArrayList<Bullet> bullets){
 		
@@ -59,6 +63,10 @@ public class Player extends SpaceObject{
 		hit = false;
 		hitTimer = 0;
 		hitTime = 2;
+		
+		score =0;
+		extraLives = 3;
+		requiredScore = 10000;
 	}
 	
 	
