@@ -314,13 +314,19 @@ public class PlayState extends GameState {
 
 	@Override
 	public void handleInput() {
+		
+		
+		if (!player.isHit()){
 		//Gdx.input.isKeyPressed(Keys.LEFT) also works
 		player.setLeft(GameKeys.isDown(GameKeys.LEFT));
 		player.setRight(GameKeys.isDown(GameKeys.RIGHT));
 		player.setUp(GameKeys.isDown(GameKeys.UP));
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
 			player.shoot();
+			}
+	
 		}
+	
 	}
 
 

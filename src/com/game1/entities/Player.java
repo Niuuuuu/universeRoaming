@@ -67,7 +67,7 @@ public class Player extends SpaceObject{
 		
 		score =0;
 		extraLives = 3;
-		requiredScore = 100;
+		requiredScore = 1000;
 	}
 	
 	
@@ -209,7 +209,7 @@ public class Player extends SpaceObject{
 		// score for extra lives 
 		if( score >= requiredScore) {
 			extraLives++;
-			requiredScore += 100;
+			requiredScore += 1000;
 			Jukebox.play("extralife");
 			
 		}
