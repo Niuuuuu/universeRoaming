@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.game1.main.Game;
+import com.game1.managers.Jukebox;
 
 public class Player extends SpaceObject{
 
@@ -66,7 +67,7 @@ public class Player extends SpaceObject{
 		
 		score =0;
 		extraLives = 3;
-		requiredScore = 10000;
+		requiredScore = 100;
 	}
 	
 	
@@ -118,7 +119,15 @@ public class Player extends SpaceObject{
 	
 	public void setLeft (boolean b) {left =b;}
 	public void setRight (boolean b) {right =b;}
-	public void setUp (boolean b) {up =b;}
+	public void setUp (boolean b) {
+		if (b && !up &&  !hit) {
+			Jukebox.loop("thruster");
+		}
+		else if(!b){
+			Jukebox.stop("thruster");
+		}
+		
+		up =b;}
 	
 	public boolean isHit() {return hit;}
 	public boolean isDead() {return dead;}
@@ -139,6 +148,7 @@ public class Player extends SpaceObject{
 		
 		dx=dy=0;
 		left=right=up= false;
+		Jukebox.stop("thruster");
 		
 		hitLines= new Line2D.Float[4];
 		for(int i=0, j= hitLines.length -1;
@@ -168,6 +178,7 @@ public class Player extends SpaceObject{
 	public void shoot(){
 		if(bullets.size() >= MAX_BULLETS) return;
 		bullets.add(new Bullet(x,y,radians));
+		Jukebox.play("shoot");
 		
 	}
 	
@@ -195,10 +206,12 @@ public class Player extends SpaceObject{
 			
 			return;
 		}
-		
+		// score for extra lives 
 		if( score >= requiredScore) {
 			extraLives++;
-			requiredScore += 10000;
+			requiredScore += 100;
+			Jukebox.play("extralife");
+			
 		}
 		
 		//turning

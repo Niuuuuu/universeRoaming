@@ -16,6 +16,7 @@ import com.game1.entities.Player;
 import com.game1.main.Game;
 import com.game1.managers.GameKeys;
 import com.game1.managers.GameStateManager;
+import com.game1.managers.Jukebox;
 
 public class PlayState extends GameState {
 
@@ -36,6 +37,11 @@ public class PlayState extends GameState {
 	private int totalAsteroids;
 	private int numAsteroidsLeft;
 	
+	private float maxDelay;
+	private float minDelay;
+	private float currentDelay;
+	private float bgTimer;
+	private boolean playLowPulse;
 	
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -68,6 +74,13 @@ public class PlayState extends GameState {
 		}
 		
 		playerLives = new Player(null);
+		
+		//set up back ground music
+		 maxDelay =1;
+		 minDelay = 0.25f;
+		 currentDelay = maxDelay;
+		 bgTimer = maxDelay;
+		 playLowPulse = true;
 	}
 	
 	private void createParticles(float x, float y) {
@@ -80,6 +93,10 @@ public class PlayState extends GameState {
 		createParticles(a.getx(), a.gety());
 		
 		numAsteroidsLeft--;
+		currentDelay = ((maxDelay - minDelay) * 
+				numAsteroidsLeft / totalAsteroids) + minDelay;
+				
+		
 	   if (a.getType()== Asteroid.LARGE){
 		   asteroids.add(
 				   new Asteroid( a.getx(), a.gety(), Asteroid.MEDIUM));
@@ -106,6 +123,8 @@ public class PlayState extends GameState {
 		int numToSpawn =4 + level -1 ;
 		totalAsteroids = numToSpawn *7;
 		numAsteroidsLeft = totalAsteroids;
+		//current music delay = max for each level
+		currentDelay = maxDelay;
 		
 		for (int i= 0; i< numToSpawn; i++){
 			
@@ -187,6 +206,22 @@ public class PlayState extends GameState {
 		}
 		//check collision
 		checkCollisions();
+		
+		//backgroup music
+		
+		bgTimer += dt;
+		if (!player.isHit() && bgTimer >= currentDelay){
+			if(playLowPulse){
+				Jukebox.play("pulselow");
+				
+			}
+			else{
+				Jukebox.play("pulsehigh");
+				
+			}
+			playLowPulse = !playLowPulse;
+			bgTimer = 0;
+		}
 	}
 
 	
@@ -201,6 +236,7 @@ public class PlayState extends GameState {
 				asteroids.remove(i);
 				i--;
 				splitAsteroids(a);
+				Jukebox.play("explode");
 				break;
 			}
 		}
@@ -222,6 +258,7 @@ public class PlayState extends GameState {
 					// increase the score
 					
 					player.incrementScore(a.getScore());
+					Jukebox.play("explode");
 					break;
 				}
 				
