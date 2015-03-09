@@ -85,6 +85,11 @@ public class Player extends SpaceObject{
 	public void setUp (boolean b) {up =b;}
 	
 	
+	public void hit(){
+		
+	}
+	
+	
 	public void shoot(){
 		if(bullets.size() >= MAX_BULLETS) return;
 		bullets.add(new Bullet(x,y,radians));

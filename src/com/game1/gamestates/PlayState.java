@@ -52,6 +52,7 @@ public class PlayState extends GameState {
 		
 	}
 
+	// split a larger asteroids into 2 medium ones. a medium one into two small one
 	private void splitAsteroids(Asteroid a){
 		
 		numAsteroidsLeft--;
@@ -143,6 +144,22 @@ public class PlayState extends GameState {
 
 	
 	private void checkCollisions(){
+		
+		
+		// player asteroid collision
+		for ( int i=0; i< asteroids.size(); i++){
+			Asteroid a = asteroids.get(i);
+			if(a.intersects(player)) {
+				player.hit();
+				asteroids.remove(i);
+				i--;
+				splitAsteroids(a);
+				break;
+			}
+		}
+		
+		
+		// bullet asteroid collision
 		for (int i=0; i<bullets.size(); i++){
 			Bullet b = bullets.get(i);
 			for (int j =0; j< asteroids.size(); j++) {

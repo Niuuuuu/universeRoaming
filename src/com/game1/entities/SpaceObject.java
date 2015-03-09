@@ -28,6 +28,22 @@ public class SpaceObject {
 	public float[] getshapex() {return shapex ;}
 	public float[] getshapey() {return shapey ;}
 	
+	
+	public boolean intersects (SpaceObject other){
+		float[] sx = other.getshapex();
+		float[] sy = other.getshapey();
+		for (int i=0; i<sx.length; i++){
+			
+			if(contains(sx[i], sy[i])){
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	
 	public boolean contains (float x, float y){
 		boolean b = false;
 		
