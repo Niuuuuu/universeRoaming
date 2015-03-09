@@ -1,10 +1,15 @@
 package com.game1.gamestates;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.game1.entities.Asteroid;
 import com.game1.main.Game;
 import com.game1.managers.GameKeys;
 import com.game1.managers.GameStateManager;
@@ -12,6 +17,8 @@ import com.game1.managers.GameStateManager;
 public class MenuState extends GameState {
 	
 	private SpriteBatch sb;
+	private ArrayList<Asteroid> asteroids;
+	private ShapeRenderer sr;
 	
 	private BitmapFont titleFont;
 	private BitmapFont font;
@@ -28,6 +35,7 @@ public class MenuState extends GameState {
 	public void init() {
 		
 		sb = new SpriteBatch();
+		sr = new ShapeRenderer();
 		
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 			Gdx.files.internal("fonts/Hyperspace Bold.ttf")
@@ -44,20 +52,41 @@ public class MenuState extends GameState {
 			"Quit"
 		};
 		
+		asteroids = new ArrayList<Asteroid>();
+		for(int i=0; i<6 ;i++){
+			asteroids.add(
+				new Asteroid(MathUtils.random(Game.WIDTH),	
+				MathUtils.random(Game.HEIGHT),
+				Asteroid.LARGE
+				)
+					);
+			
+		}
 	}
 	
 	public void update(float dt) {
 		
 		handleInput();
 		
+		for(int i=0; i<asteroids.size(); i++){
+			asteroids.get(i).update(dt);			
+		}
+		
 	}
 	
 	public void draw() {
 		
 		sb.setProjectionMatrix(Game.cam.combined);
+		sr.setProjectionMatrix(Game.cam.combined);
+		
+	
+		
+		//draw background
+		for(int i=0; i<asteroids.size(); i++){
+			asteroids.get(i).draw(sr);			
+		}
 		
 		sb.begin();
-		
 		// draw title
 		float width = titleFont.getBounds(title).width;
 		titleFont.draw(
@@ -124,7 +153,13 @@ public class MenuState extends GameState {
 		}
 	}
 	
-	public void dispose() {}
+	public void dispose() {
+		sb.dispose();
+		sr.dispose();
+		titleFont.dispose();
+		font.dispose();				
+		
+	}
 
 }
 

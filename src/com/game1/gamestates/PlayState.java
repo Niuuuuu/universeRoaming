@@ -332,7 +332,9 @@ public class PlayState extends GameState {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		sb.dispose();
+		sr.dispose();
+		font.dispose();
 		
 	}
 	
