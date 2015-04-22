@@ -1,8 +1,8 @@
 # universeRoaming
 Java sideproject using libgdx.
 Focusing on object oriented design.
-Most of the backend codes are here, to execute this project must run the main,java in another repo called " universeRoaming-deasktop"
-
+Most of the backend codes are here, to execute this project must run the main.java in this repo : 
+https://github.com/Niuuuuu/universeRoaming-desktop/tree/master
 gameplay images 
 ===================================
 
